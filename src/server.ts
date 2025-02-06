@@ -1,10 +1,9 @@
 import express from 'express';
+import router from './router';
 
 const app = express(); // instancia de express
 
-// routing a pagina principal
-app.get('/', (req, res) => {
-    res.send('Hola mundo en express');
-});
+app.use('/', router); // buscamos la ruta principal en el router
+
 
 export default app;
