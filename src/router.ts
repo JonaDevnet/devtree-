@@ -5,7 +5,7 @@ const router = Router();
 /**
  * Autentificacion y registro
  */
-router.post('/aut/register', (req, res) => {
+router.post('/auth/register', (req, res) => {
     console.log('Desde register');   
 })
 
