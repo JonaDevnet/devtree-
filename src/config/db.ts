@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
+import colors from 'colors';
+console.log("MONGO_URI:", process.env.MONGO_URI);
 
 export const connectDb = async () => {
     try {
-        const URL = 'mongodb+srv://root:BKpNKjvRcIrMY1cS@cluster0.1y4ii.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-        
-        const conecction = await mongoose.connect(URL);
-        console.log(conecction);
+        const {connection} = await mongoose.connect(process.env.MONGO_URI);
+        const url = `${connection.host}:${connection.port}`;
 
-        console.log(`MongoDB Conectado`);
+        console.log(colors.cyan.bold(`MongoDb conectado en ${url}`));
+
     } catch (error) {
-        console.log(error);
+        console.log(colors.bgRed.italic(error.message));
+        process.exit();
     }
 } 
