@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import colors from 'colors';
-console.log("MONGO_URI:", process.env.MONGO_URI);
+//console.log("MONGO_URI:", process.env.MONGO_URI);
 
 export const connectDb = async () => {
     try {
