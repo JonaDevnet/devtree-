@@ -14,11 +14,11 @@ export const createAccount = async (req: Request, res: Response) => {
             res.status(409).json({error : error.message}); // recuperamos el mensaje de error
             return;
         }
-    
+        
         const user = new User(req.body);
-        const hash = await hashPassword(password);
+        user.password = await hashPassword(password);
 
-        console.log(hash)
+
         await user.save();
 
         res.status(201).send({msg : 'Registro agregado'});
