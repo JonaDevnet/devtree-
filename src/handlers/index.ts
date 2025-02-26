@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { validationResult } from "express-validator";
 import slug from 'slug';
 import User from "../models/User";
 import { hashPassword } from "../utils/auth";
@@ -6,6 +7,14 @@ import { hashPassword } from "../utils/auth";
 export const createAccount = async (req: Request, res: Response) => {
 
     try {
+
+        // Manejar errores
+        let error = validationResult(req);
+        if(!error.isEmpty()){
+            res.status(400).json({erros: error.array()});
+            return;
+        }
+
         //capturamos el cuerpo de la solicitud
         const { email, password} = req.body;
 
