@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import slug, { reset } from 'slug';
 import User from "../models/User";
-import { hashPassword } from "../utils/auth";
+import { checkPassword, hashPassword } from "../utils/auth";
 
 export const createAccount = async (req: Request, res: Response) => {
 
@@ -76,7 +76,17 @@ export const login = async (req: Request, res: Response) => {
             return;
         }
 
-        res.status(201).send({msg : 'logueado con exito'})
+        //comprobamos el pass
+        const isPasswordCorrect = await checkPassword(password, user.password);
+
+        if(!isPasswordCorrect){
+            const error = new Error('Password incorrecto');
+            res.status(401).json({msg: error.message});
+            return;
+        }
+
+        res.send('Autenticado');
+
     } catch (error) {
         console.error(error);
         res.status(500).json({error: 'Error en el servidor'});
