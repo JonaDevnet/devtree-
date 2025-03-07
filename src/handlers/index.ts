@@ -57,6 +57,16 @@ export const createAccount = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-
-    console.log('Probando endpoint de login')
+    try {
+        // Manejar errores
+        let error = validationResult(req);
+        if(!error.isEmpty()){
+            res.status(400).json({erros: error.array()});
+            return;
+        }
+        res.status(201).send({msg : 'logueado con exito'})
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({error: 'Error en el servidor'});
+    }
 }
