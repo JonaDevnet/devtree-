@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import slug from 'slug';
+import slug, { reset } from 'slug';
 import User from "../models/User";
 import { hashPassword } from "../utils/auth";
 
@@ -54,4 +54,9 @@ export const createAccount = async (req: Request, res: Response) => {
         res.status(500).json({error: 'Error en el servidor'});
     }
 
+}
+
+export const login = async (req: Request, res: Response) => {
+
+    console.log('Probando endpoint de login')
 }

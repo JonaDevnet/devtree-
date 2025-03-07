@@ -21,9 +21,12 @@ router.post('/auth/register',
         .isEmail()
         .withMessage('El email no valido'),    
     body('password')
-        .isEmail()
+        .isLength({min: 8})
         .withMessage('El password o puede ir vacio'),  
 
-    createAccount )
+    createAccount 
+)
+
+router.post('/auth/login');
 
 export default router;
