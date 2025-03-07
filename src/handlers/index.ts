@@ -64,6 +64,18 @@ export const login = async (req: Request, res: Response) => {
             res.status(400).json({erros: error.array()});
             return;
         }
+
+        // buscamos si ya existe
+        const { email, password} = req.body;
+
+        const user = await User.findOne({email});
+        
+        if(!user) {
+            const error = new Error('El usuario no existe');
+            res.status(404).json({error : error.message}); // recuperamos el mensaje de error
+            return;
+        }
+
         res.status(201).send({msg : 'logueado con exito'})
     } catch (error) {
         console.error(error);
